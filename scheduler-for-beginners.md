@@ -105,6 +105,38 @@ Three strategies (e.g. ways for the manager to select a node to run a container)
 
 If multiple nodes are selected by the strategy, the scheduler chooses a random node among those. The strategy needs to be defined when starting the manager or the “spread” strategy will be used by default.
 
+## Design Issues
+
+At the end, there is some design issues cluster scheduler must address.
+
+### Partitioning the scheduing work
+
+The jobs maybe have different priorities or some of the tasks could only be running in specific machines. Some systems use multiple job queues to hold the job requests, and swarm supports labeling the node and scheduling the job to the machines filtered by labels. This is an important feature to cluster schedulers.
+
+### Choice of resources
+
+Scheduler can be allowed to select from all the cluster resources, or limited to a subset to streamline decision making. The former increases the oppourtunity to make better decisions, and is important when the jobs needs to be placed into a nearly-full cluster.
+
+One the one hand, the choice of resources relies on resources of machiens. The resources of a machine can be divided into two types: physical resources and logical resources.
+
+Physical resources typically include CPUs, memory, and peripheral devices. CPU and memory are the most important resources in data centers, because they are expensive than others. And Some jobs maybe depend on special IO devices, so the IO devices is the bottleneck sometimes.
+
+Logical resources include file discriptors, PIDs and so on. They are not as important as the physical resources to data centers. In general, scheduler doesn't need to care about the resources.
+
+On the other hand, The choise of resources also relies on the resources needed by the job. Scheduler should bind the job to a specific machine by its resource requirement.
+
+### Allocation Granularity
+
+If the cluster support multiple tasks in the job, and the scheduler can have different policies for how to schedule them: (1) all the tasks in the job should be running in one machine. and (2) there is no need to run all tasks in one job in one machine. The scheduler should handle this two types of jobs.
+
+### Rescheduling
+
+Scheduler should reschedule the jobs when the machine they are running on fail, to ensure that the job could be executed at least once. Scheduler could restart stateless jobs one another machine, but the stateful jobs is more complex.
+
+### Ad-hoc
+
+The cluster scheduling is general, and could not cover all the user cases, so the scheduler should have good extensibility to deal with the ad-hoc problems.
+
 ## Summary
 
 There is no best solution for scheduling containers, Docker Swarm is the simplest scheduler to understand, Kubernetes has a logic that is different from the standard Docker philosophy but its concept of pods and services is an interesting way to use containers while still thinking about what their combinations with others. Using Mesos with Marathon is an excellent combination if you already have a Mesos cluster. And Mesos with Marathon is production ready.
