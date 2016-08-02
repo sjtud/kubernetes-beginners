@@ -144,5 +144,13 @@ There is no best solution for scheduling containers, Docker Swarm is the simples
 ## Reference
 
 1. [Comparison of Container Schedulers](https://medium.com/@ArmandGrillet/comparison-of-container-schedulers-c427f4f7421)
-2. [48] Malte Schwarzkopf et al. “Omega: flexible, scalable schedulers for large
+2. Malte Schwarzkopf et al. “Omega: flexible, scalable schedulers for large
 compute clusters”. url: [http://web.eecs.umich.edu/~mosharaf/Readings/Omega.pdf](http://web.eecs.umich.edu/~mosharaf/Readings/Omega.pdf)
+3. Cisco; Red Hat. “Linux Containers: Why They’re in Your Future and What Has to Happen First”. In: (2014).
+4. Benjamin Hindman et al. “Mesos: A platform for fine-grained resource
+sharing in the data center”. In: (2011).
+5. Abhishek Verma et al. “Large-scale cluster management at Google with
+Borg”. In: Proceedings of the Tenth European Conference on Computer
+Systems — EuroSys ’15 (2015), p. 13.
+6. Vinod Kumar Vavilapalli et al. “Apache Hadoop YARN:Yet Another
+Resource Negotiator”. In: (2013), p. 16.
